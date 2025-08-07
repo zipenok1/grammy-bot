@@ -29,8 +29,8 @@ describe('/register command', () => {
     mockUser.findFirst.mockResolvedValue(null);
     mockUser.create.mockResolvedValue({
       id: 1,
-      // username: 'test_user',
-      // createdAt: new Date()
+      username: 'test_user',
+      createdAt: new Date()
     });
 
     await Register(ctx);
