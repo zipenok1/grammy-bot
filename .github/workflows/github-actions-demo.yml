@@ -28,7 +28,7 @@ jobs:
         DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/postgres?schema=public"
       run: |
         npx prisma generate
-        npx prisma migrate dev --name init    
+        npx prisma migrate deploy 
     - name: Run tests
       env:
         DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/postgres?schema=public"
