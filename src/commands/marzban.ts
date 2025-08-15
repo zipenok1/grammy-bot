@@ -3,7 +3,7 @@ import axios from 'axios';
 export const createMarzbanUser = async (tgUsername: string) => {
   
   try {
-    const { data } = await axios.post(`http://localhost:8000/api/user`,
+    const { data } = await axios.post("http://localhost:8000/api/user",
       {
         username: tgUsername,
         data_limit: 1073741824, 
@@ -21,6 +21,6 @@ export const createMarzbanUser = async (tgUsername: string) => {
     }
     
   } catch (error: any) {
-    console.error('API Error:', error.response?.data || error.message);
+    console.error('API Error', error.response?.data || error.message);
   }
 };

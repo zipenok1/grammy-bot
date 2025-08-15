@@ -1,24 +1,24 @@
 import { Echo } from '../commands/echo';
 
-describe('Echo handler', () => {
-  test('should echo text messages', async () => {
-    const text = 'Привет';
+describe('echo', () => {
+  test('повторение сообщений', async () => {
+    const text = 'Привет'
     const ctx = {
       reply: jest.fn(),
       message: {text}
-    } as any;
+    } as any
 
     await Echo(ctx);
     expect(ctx.reply).toHaveBeenCalledWith(text);
-  });
+  })
 
-  test('should not reply if no text', async () => {
+  test('пустая строка', async () => {
     const ctx = {
       reply: jest.fn(),
       message: {}
-    } as any;
+    } as any
 
     await Echo(ctx);
     expect(ctx.reply).not.toHaveBeenCalled();
-  });
-});
+  })
+})

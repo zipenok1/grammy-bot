@@ -1,30 +1,29 @@
-import { link } from 'fs';
 import { Register } from '../commands/register';
 
 jest.mock('../generated/prisma', () => {
   const mockUser = {
     findFirst: jest.fn(),
     create: jest.fn()
-  };
+  }
   return {
     PrismaClient: jest.fn(() => ({
       user: mockUser
     })),
     mockUser 
-  };
-});
+  }
+})
 
 jest.mock('../commands/marzban', () => ({
   createMarzbanUser: jest.fn()
-}));
+}))
 
 const { mockUser } = require('../generated/prisma');
 const { createMarzbanUser } = require('../commands/marzban')
 
-describe('/register command', () => {
+describe('register', () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-  });
+    jest.clearAllMocks()
+  })
 
   test('Успешная регистрация', async () => {
     const ctx = {
@@ -39,7 +38,7 @@ describe('/register command', () => {
       username: 'test_user',
       link: 'vpn-config-link',
       createdAt: new Date()
-    });
+    })
 
     await Register(ctx);
 
@@ -49,6 +48,6 @@ describe('/register command', () => {
     expect(createMarzbanUser).toHaveBeenCalledWith('test_user')
     expect(ctx.reply).toHaveBeenCalledWith(
       'Вы успешно зарегистрированы под именем @test_user! Ваш конфиг: vpn-config-link'
-    );
-  });
-});
+    )
+  })
+})
