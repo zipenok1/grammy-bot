@@ -1,4 +1,4 @@
-import { Echo } from '../commands/echo';
+import { echo } from '../commands/echo';
 
 describe('echo', () => {
   test('повторение сообщений', async () => {
@@ -8,7 +8,7 @@ describe('echo', () => {
       message: {text}
     } as any
 
-    await Echo(ctx);
+    await echo(ctx);
     expect(ctx.reply).toHaveBeenCalledWith(text);
   })
 
@@ -18,7 +18,7 @@ describe('echo', () => {
       message: {}
     } as any
 
-    await Echo(ctx);
+    await echo(ctx);
     expect(ctx.reply).not.toHaveBeenCalled();
   })
 })

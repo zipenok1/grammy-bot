@@ -1,4 +1,4 @@
-import { Register } from '../commands/register';
+import { register } from '../commands/register';
 
 jest.mock('../generated/prisma', () => {
   const mockUser = {
@@ -40,7 +40,7 @@ describe('register', () => {
       createdAt: new Date()
     })
 
-    await Register(ctx);
+    await register(ctx);
 
     expect(mockUser.findFirst).toHaveBeenCalledWith({
       where: { username: 'test_user' }

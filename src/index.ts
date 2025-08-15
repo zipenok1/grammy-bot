@@ -1,7 +1,7 @@
 import { Bot } from 'grammy';
-import { Start } from './commands/start';
-import { Register } from './commands/register';
-import { Echo } from './commands/echo';
+import { start } from './commands/start';
+import { register } from './commands/register';
+import { echo } from './commands/echo';
 
 const KEY = process.env.BOT_TOKEN;
 if (!KEY) throw new Error('Ошибка с токеном');
@@ -13,8 +13,8 @@ bot.api.setMyCommands([
   { command: 'register', description: 'Регистрация в системе' },
 ]);
 
-bot.command('start', Start);
-bot.command('register', Register);
-bot.on('message:text', Echo);
+bot.command('start', start);
+bot.command('register', register);
+bot.on('message:text', echo);
 
 bot.start()

@@ -3,7 +3,7 @@ import { Context } from 'grammy';
 import { createMarzbanUser } from './marzban';
 const prisma = new PrismaClient();
 
-export const Register = async (ctx: Context) => {
+export const register = async (ctx: Context) => {
   try {
     if (!ctx.from?.username) {
       await ctx.reply('Для регистрации у вас должен быть username в Telegram');
