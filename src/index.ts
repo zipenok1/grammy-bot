@@ -2,6 +2,7 @@ import { Bot } from 'grammy';
 import { start } from './commands/start';
 import { register } from './commands/register';
 import { echo } from './commands/echo';
+import 'dotenv/config';
 
 const KEY = process.env.BOT_TOKEN;
 if (!KEY) throw new Error('Ошибка с токеном');
