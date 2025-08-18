@@ -46,4 +46,15 @@ export const createMarzbanUser = async (tgUsername: string) =>{
   } catch (error: any){
     console.error('API Error', error);
   }
-};
+}
+
+export const deleteMarzbanUser = async (tgUsername: string) =>{
+  let NewToken = await getMarzbanToken()
+  await axios.delete(`http://localhost:8000/api/user/${tgUsername}`,
+    {
+      headers: {
+          Authorization: `Bearer ${NewToken}`
+      }
+    }
+  )
+}

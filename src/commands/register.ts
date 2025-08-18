@@ -1,6 +1,7 @@
-import { PrismaClient } from '../generated/prisma';
 import { Context } from 'grammy';
+import { PrismaClient } from '../generated/prisma';
 import { createMarzbanUser } from './marzban';
+
 const prisma = new PrismaClient();
 
 export const register = async (ctx: Context) => {
@@ -26,7 +27,9 @@ export const register = async (ctx: Context) => {
       }
     });
 
-    await ctx.reply(`Вы успешно зарегистрированы под именем @${user.username}! Ваш конфиг: ${user?.link}`);
+    await ctx.reply(
+      `Вы успешно зарегистрированы под именем @${user.username}! Ваш конфиг: ${user?.link} Если хотите удалить аккаунт васпользуйтесь командой /delete`
+      );
     } catch (error) {
         console.error('Ошибка при регистрации:', error);
         await ctx.reply('Произошла ошибка при регистрации');
