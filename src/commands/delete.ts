@@ -14,8 +14,8 @@ export const deleteUser = async (ctx: Context) =>{
         await prisma.user.delete({
             where: {username: username}
         })
-        const marzbanUser = username[0] === '0' ? username.slice(1) : username
-        await deleteMarzbanUser(marzbanUser)
+        
+        await deleteMarzbanUser(username)
 
         await ctx.reply('Вы успешно удалили данные')
      } catch(error:any){

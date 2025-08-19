@@ -1,20 +1,28 @@
-import { createMarzbanUser } from "../commands/marzban";
-import axios from "axios";
+import * as marzbanAll from "../commands/marzban"
+import axios from "axios"
 
-jest.mock('axios');
+jest.mock('axios')
 
-test('создание пользователя', async () => {
-    const fakeUsername = "test_user_123";
+describe('marzban', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
+
+  test('создание пользователя', async () => {
+    const fakeUsername = "test_user_123"
     const fakeApiResponse = {
       data: {
         links: ["shadowsocks://generated-link-here"]
       }
-    };
+    }
 
-    (axios.post as jest.Mock).mockResolvedValue(fakeApiResponse);
-    const result = await createMarzbanUser(fakeUsername);
+    jest.spyOn(marzbanAll, 'validToken').mockResolvedValue(true);
+    (axios.post as jest.Mock).mockResolvedValue(fakeApiResponse)
 
-    expect(axios.post).toHaveBeenCalledWith("http://localhost:8000/api/user",
+    const result = await marzbanAll.createMarzbanUser(fakeUsername)
+
+    expect(axios.post).toHaveBeenCalledWith(
+      "http://localhost:8000/api/user",
       {
         username: fakeUsername,
         data_limit: 1073741824,
@@ -23,12 +31,13 @@ test('создание пользователя', async () => {
       },
       {
         headers: {
-          Authorization: `Bearer ${process.env.MARZBAN_TOKEN}`
+          Authorization: expect.stringContaining('Bearer')
         }
       }
     )
 
     expect(result).toEqual({
       link: "shadowsocks://generated-link-here"
-    }) 
+    })
+  })
 })

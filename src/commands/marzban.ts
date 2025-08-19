@@ -1,6 +1,23 @@
 import axios from 'axios';
 
-let token: string 
+let token: string | undefined = process.env.MARZBAN_TOKEN
+
+export const validToken = async (chekToken: string | undefined) =>{
+  if (!chekToken) return false
+  try{
+    await axios.get("http://localhost:8000/api/admin",
+      {
+        headers: {
+          Authorization: `Bearer ${chekToken}`
+        }
+      }
+    )
+    return true
+
+  } catch(error: any){
+    return false
+  }
+}
 
 export const getMarzbanToken = async () =>{
   try{
@@ -14,18 +31,22 @@ export const getMarzbanToken = async () =>{
         'Content-Type': 'application/x-www-form-urlencoded'
     }
   })
-    token = data.access_token
-    return token
+    return data.access_token
 
   } catch(error: any){
-    console.error('TOKEN Error', error);
+    console.error('TOKEN Error', error)
   }
 }
 
 export const createMarzbanUser = async (tgUsername: string) =>{  
+  if (!(await validToken(token))) {
+    token = await getMarzbanToken()
+    if (!token) {
+      console.error('Токен не получен')
+      return null
+    }
+  }
   try{
-    let NewToken = await getMarzbanToken()
-
     const { data } = await axios.post("http://localhost:8000/api/user",
       {
         username: tgUsername,
@@ -35,7 +56,7 @@ export const createMarzbanUser = async (tgUsername: string) =>{
       },
       {
         headers: {
-          Authorization: `Bearer ${NewToken}`
+          Authorization: `Bearer ${token}`
         }
       }
     )
@@ -45,16 +66,28 @@ export const createMarzbanUser = async (tgUsername: string) =>{
     
   } catch (error: any){
     console.error('API Error', error);
+    throw error;
   }
 }
 
 export const deleteMarzbanUser = async (tgUsername: string) =>{
-  let NewToken = await getMarzbanToken()
-  await axios.delete(`http://localhost:8000/api/user/${tgUsername}`,
-    {
-      headers: {
-          Authorization: `Bearer ${NewToken}`
+  try{
+    if (!(await validToken(token))) {
+        token = await getMarzbanToken();
+        if (!token) 
+          console.error('Токен не получен')
+          return null
       }
-    }
-  )
+      await axios.delete(`http://localhost:8000/api/user/${tgUsername}`,
+        {
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+        }
+      )
+    return true
+  } catch(error: any){
+    console.error('DEL Error', error)
+    throw error
+  } 
 }
