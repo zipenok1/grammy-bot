@@ -49,7 +49,7 @@ describe('register', () => {
     expect(ctx.reply).toHaveBeenCalledWith(
       `Вы успешно зарегистрированы под именем test_user! \n` +
       `Ваш конфиг: vpn-config-link \n` +
-      `Если хотите удалить аккаунт васпользуйтесь командой /delete`
+      `Если хотите удалить аккаунт воспользуйтесь командой /delete`
     )
   })
 })

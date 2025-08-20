@@ -30,7 +30,7 @@ export const register = async (ctx: Context) => {
     await ctx.reply(
       `Вы успешно зарегистрированы под именем ${user.username}! \n` +
       `Ваш конфиг: ${user?.link} \n` +
-      'Если хотите удалить аккаунт васпользуйтесь командой /delete'
+      'Если хотите удалить аккаунт воспользуйтесь командой /delete'
       );
     } catch (error) {
         console.error('Ошибка при регистрации:', error);
