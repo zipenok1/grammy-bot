@@ -48,7 +48,7 @@ describe('register', () => {
     expect(createMarzbanUser).toHaveBeenCalledWith('test_user')
     expect(ctx.reply).toHaveBeenCalledWith(
       `Вы успешно зарегистрированы под именем test_user! \n` +
-      `Ваш конфиг: vpn-config-link \n` +
+      `Ваш конфиг: vpn-config-link \n\n` +
       `Если хотите удалить аккаунт воспользуйтесь командой /delete`
     )
   })

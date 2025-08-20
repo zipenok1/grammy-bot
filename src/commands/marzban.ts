@@ -85,7 +85,6 @@ export const deleteMarzbanUser = async (tgUsername: string) =>{
           }
         }
       )
-    return true
   } catch(error: any){
     console.error('DEL Error', error)
     throw error
