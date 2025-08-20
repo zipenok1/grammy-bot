@@ -8,6 +8,7 @@ test('первое сообщение', async () => {
 
   await start(ctx);
   expect(ctx.reply).toHaveBeenCalledWith(
-    'Добро пожаловать! Используйте /register для регистрации'
+    `Добро пожаловать! \n` +
+    `Используйте /register для регистрации`
   )
 })
